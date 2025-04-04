@@ -6,9 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class CustomerManagerTest {
+public class CustomerManagerTest 
+{
     private CustomerManager customerManager;
-    private final String testCustomerName = "Mahmoud Yaseen";  // تم تعديل الاسم هنا
+    private final String testCustomerName = "Mahmoud Yaseen";
 
     @BeforeEach
     void setup() 
@@ -24,7 +25,8 @@ public class CustomerManagerTest {
     }
 
     @Test
-    void testUpdatePreferences() {
+    void testUpdatePreferences()
+    {
         customerManager.registerCustomer(testCustomerName);
         assertTrue(customerManager.updatePreferences(testCustomerName, "Vegetarian", "Peanuts"));
 
@@ -34,7 +36,22 @@ public class CustomerManagerTest {
     }
 
     @Test
-    void testGetNonExistentCustomer() {
+    void testGetNonExistentCustomer() 
+    {
         assertNull(customerManager.getCustomer("Unknown"));
     }
+    
+    @Test
+    void testChefViewsCustomerPreferences() 
+    {
+        customerManager.registerCustomer(testCustomerName);
+        customerManager.updatePreferences(testCustomerName, "Vegetarian", "Peanuts");
+
+        String[] preferences = customerManager.getCustomerPrefrences(testCustomerName);
+        assertNotNull(preferences);
+        assertEquals("Vegetarian", preferences[0]);
+        assertEquals("Peanuts", preferences[1]);
+    }
+
+
 }

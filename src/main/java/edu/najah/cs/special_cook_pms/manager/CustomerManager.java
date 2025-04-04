@@ -4,15 +4,19 @@ import edu.najah.cs.special_cook_pms.model.Customer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CustomerManager {
+public class CustomerManager 
+{
     private final Map<String, Customer> customers = new HashMap<>();
 
-    public boolean registerCustomer(String name) {
-        if (name == null || name.trim().isEmpty()) {
+    public boolean registerCustomer(String name) 
+    {
+        if (name == null || name.trim().isEmpty())
+        {
             System.out.println("❌ Error: Invalid customer name...");
             return false;
         }
-        if (customers.containsKey(name)) {
+        if (customers.containsKey(name))
+        {
             System.out.println("⚠️ Customer already exists...");
             return false;
         }
@@ -20,9 +24,11 @@ public class CustomerManager {
         return true;
     }
 
-    public boolean updatePreferences(String name, String dietaryPreferences, String allergies) {
+    public boolean updatePreferences(String name, String dietaryPreferences, String allergies)
+    {
         Customer customer = customers.get(name);
-        if (customer == null) {
+        if (customer == null) 
+        {
             System.out.println("❌ Error: Customer not found.");
             return false;
         }
@@ -31,11 +37,24 @@ public class CustomerManager {
         return true;
     }
 
-    public Customer getCustomer(String name) {
+    public Customer getCustomer(String name) 
+    {
         return customers.get(name);
     }
 
-    public boolean isRegistered(String name) {
+    public boolean isRegistered(String name)
+    {
         return customers.containsKey(name);
+    }
+    
+    public String[] getCustomerPrefrences(String name)
+    {
+    	Customer customer=customers.get(name);
+    	if(customer==null)
+    	{
+    		System.out.println("❌ Error: Customer not found.");
+    		return null;
+    	}
+    	return new String[] {customer.getDietaryPreferences(),customer.getAllergies()};
     }
 }
