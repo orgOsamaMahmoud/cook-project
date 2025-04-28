@@ -52,6 +52,38 @@ public class CustomerManagerTest
         assertEquals("Vegetarian", preferences[0]);
         assertEquals("Peanuts", preferences[1]);
     }
+    
+    @Test
+    void testPlaceOrderAndGetOrderHistory() {
+        customerManager.registerCustomer(testCustomerName);
+        assertTrue(customerManager.placeOrder(testCustomerName, "Grilled Chicken"));
+        assertTrue(customerManager.placeOrder(testCustomerName, "Pasta Alfredo"));
 
+        Customer customer = customerManager.getCustomer(testCustomerName);
+        assertNotNull(customer);
+        assertEquals(2, customer.getOrderHistory().size());
+        assertEquals("Grilled Chicken", customer.getOrderHistory().get(0));
+        assertEquals("Pasta Alfredo", customer.getOrderHistory().get(1));
+    }
+
+    @Test
+    void testReorderMealSuccessfully() {
+        customerManager.registerCustomer(testCustomerName);
+        customerManager.placeOrder(testCustomerName, "Grilled Chicken");
+
+        assertTrue(customerManager.reorderMeal(testCustomerName, "Grilled Chicken"));
+
+        Customer customer = customerManager.getCustomer(testCustomerName);
+        assertNotNull(customer);
+        assertEquals(2, customer.getOrderHistory().size());
+        assertEquals("Grilled Chicken", customer.getOrderHistory().get(0));
+        assertEquals("Grilled Chicken", customer.getOrderHistory().get(1));
+    }
+
+    @Test
+    void testReorderMealFailIfMealNotOrderedBefore() {
+        customerManager.registerCustomer(testCustomerName);
+        assertFalse(customerManager.reorderMeal(testCustomerName, "Shawarma"));
+    }
 
 }

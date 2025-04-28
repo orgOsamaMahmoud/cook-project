@@ -2,6 +2,7 @@ package edu.najah.cs.special_cook_pms.manager;
 
 import edu.najah.cs.special_cook_pms.model.Customer;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CustomerManager 
@@ -57,4 +58,52 @@ public class CustomerManager
     	}
     	return new String[] {customer.getDietaryPreferences(),customer.getAllergies()};
     }
+    
+    public boolean placeOrder(String customerName,String mealName)
+    {
+    	Customer customer=customers.get(customerName);
+    	if(customer==null)
+    	{
+    		 System.out.println("❌ Error: Customer not found.");
+    	        return false;
+    	}
+    	if (mealName == null || mealName.trim().isEmpty())
+        {
+            System.out.println("❌ Error: Invalid meal name.");
+            return false;
+        }
+    	customer.addOrder(mealName);
+    	return true;
+    }
+    
+    public List<String> getOrderHistory(String customerName)
+    {
+    	Customer customer=customers.get(customerName);
+    	if(customer==null)
+    	{
+    		 System.out.println("❌ Error: Customer not found.");
+    	        return null;
+    	}
+    	return customer.getOrderHistory();
+    }
+    
+    public boolean reorderMeal(String customerName, String mealName)
+    {
+        Customer customer = customers.get(customerName);
+        if (customer == null)
+        {
+            System.out.println("❌ Error: Customer not found.");
+            return false;
+        }
+        if (!customer.getOrderHistory().contains(mealName))
+        {
+            System.out.println("❌ Error: Meal not found in order history.");
+            return false;
+        }
+        
+        customer.addOrder(mealName);
+        System.out.println("✅ Meal reordered successfully for " + customerName + ": " + mealName);
+        return true;
+    }
+
 }

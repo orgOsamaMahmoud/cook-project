@@ -69,4 +69,77 @@ public class customer_profile
         assertEquals(expectedAllergies, customer.getAllergies());
     }
     
+    @Given("the chef wants to prepare a meal for {string}")
+    public void the_chef_wants_to_prepare_a_meal_for(String name) {
+        customer = customerManager.getCustomer(name);
+        assertNotNull(customer);
+    }
+
+    @When("the chef requests customer dietary preferences")
+    public void the_chef_requests_customer_dietary_preferences() {
+        assertNotNull(customer.getDietaryPreferences());
+        assertNotNull(customer.getAllergies());
+    }
+
+    @Given("the customer {string} has placed previous orders")
+    public void the_customer_has_placed_previous_orders(String name) {
+        customerManager.registerCustomer(name);
+        customer = customerManager.getCustomer(name);
+        customer.addOrder("Grilled Chicken"); 
+    }
+
+    @When("the customer views their order history")
+    public void the_customer_views_their_order_history() {
+        assertNotNull(customer.getOrderHistory());
+    }
+
+    @Then("the system should display a list of their past meal orders")
+    public void the_system_should_display_a_list_of_their_past_meal_orders() {
+        assertFalse(customer.getOrderHistory().isEmpty());
+    }
+
+    @Given("the customer {string} has ordered {string} before")
+    public void the_customer_has_ordered_before(String name, String meal) {
+        customerManager.registerCustomer(name);
+        customer = customerManager.getCustomer(name);
+        customer.addOrder(meal);
+    }
+
+    @When("the customer selects {string} to reorder")
+    public void the_customer_selects_to_reorder(String meal) {
+        customer.addOrder(meal); 
+    }
+
+    @Then("the system should confirm that the order has been placed again")
+    public void the_system_should_confirm_that_the_order_has_been_placed_again() {
+        assertTrue(customer.getOrderHistory().size() > 1);
+    }
+
+    @Then("the system should provide a list of meals ordered by {string}")
+    public void the_system_should_provide_a_list_of_meals_ordered_by(String name) {
+        Customer customer = customerManager.getCustomer(name);
+        assertNotNull(customer);
+        assertFalse(customer.getOrderHistory().isEmpty());
+    }
+
+    @Given("the customer {string} places an order for {string}")
+    public void the_customer_places_an_order_for(String name, String meal) {
+        customerManager.registerCustomer(name);
+        customer = customerManager.getCustomer(name);
+        customer.addOrder(meal);
+    }
+
+    @When("the system processes the order")
+    public void the_system_processes_the_order() {
+        assertNotNull(customer.getOrderHistory());
+    }
+
+    @Then("the order should be stored in {string}'s order history")
+    public void the_order_should_be_stored_in_s_order_history(String name) {
+        Customer customer = customerManager.getCustomer(name);
+        assertNotNull(customer);
+        assertFalse(customer.getOrderHistory().isEmpty());
+    }
+
+    
 }
