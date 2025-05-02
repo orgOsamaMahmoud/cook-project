@@ -41,6 +41,14 @@
       <artifactId>cucumber-java</artifactId>
       <version>7.3.4</version>
     </dependency>
+    
+    <dependency>
+    	<groupId>io.cucumber</groupId>
+   	 	<artifactId>cucumber-picocontainer</artifactId>
+    	<version>7.3.4</version> <!-- أو نفس نسخة cucumber الموجودة عندك -->
+    	<scope>test</scope>
+	</dependency>
+
 
   </dependencies>
 

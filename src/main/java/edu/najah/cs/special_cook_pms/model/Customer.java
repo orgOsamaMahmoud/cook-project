@@ -5,10 +5,11 @@ import java.util.List;
 
 public class Customer
 {
-	private List<String>orderHistory;
+    private List<String>orderHistory;
     private final String name;
     private String dietaryPreferences;
     private String allergies;
+    private List<String>customMealIngredients;
 
     public Customer(String name)
     {
@@ -20,6 +21,7 @@ public class Customer
         this.dietaryPreferences = "";
         this.allergies = "";
         this.orderHistory=new ArrayList<>();
+        this.customMealIngredients=new ArrayList<>();
     }
 
     public String getName()
@@ -28,12 +30,12 @@ public class Customer
     }
 
     public String getDietaryPreferences() 
-    
     {
         return dietaryPreferences;
     }
 
-    public String getAllergies() {
+    public String getAllergies()
+    {
         return allergies;
     }
 
@@ -46,15 +48,24 @@ public class Customer
     {
         this.allergies = allergies;
     }
- 
+
     public void addOrder(String mealName)
     {
-    	orderHistory.add(mealName);
+        orderHistory.add(mealName);
     }
-    
+
     public List<String> getOrderHistory()
     {
-    	return new ArrayList<>(orderHistory);
+        return new ArrayList<>(orderHistory);
     }
-    
+
+    public void setCustomMealIngredients( List<String>ingredients)
+    {
+        this.customMealIngredients=ingredients;
+    }
+
+    public List<String>getCustomMealIngredients()
+    {
+        return customMealIngredients;
+    }
 }
