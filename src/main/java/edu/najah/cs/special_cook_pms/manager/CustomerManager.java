@@ -16,6 +16,8 @@ public class CustomerManager
 
     private boolean incompatibleCombinationDetected = false;
     private boolean emptyIngredientsProvided = false;
+    private boolean allergyConflictDetected = false;
+
 
     public boolean registerCustomer(String name) 
     {
@@ -117,6 +119,7 @@ public class CustomerManager
     public boolean requestCustomMeal(String customerName, List<String> ingredients)
     {
         Customer customer = customers.get(customerName);
+
         if (customer == null)
         {
             System.out.println("❌ Error: Customer not found.");
@@ -125,6 +128,7 @@ public class CustomerManager
 
         incompatibleCombinationDetected = false;
         emptyIngredientsProvided = false;
+        allergyConflictDetected = false;
 
         if (ingredients == null || ingredients.isEmpty()) 
         {
@@ -148,12 +152,14 @@ public class CustomerManager
                 List<String> allergyList = Arrays.asList(customer.getAllergies().split(","));
                 for (String allergy : allergyList) 
                 {
-                    if (ingredient.equalsIgnoreCase(allergy.trim())) 
-                    {
-                        System.out.println("❌ Ingredient conflicts with allergy: " + ingredient);
-                        customer.setCustomMealIngredients(new ArrayList<>());
-                        return false;
-                    }
+                	if (ingredient.equalsIgnoreCase(allergy.trim())) 
+                	{
+                	    System.out.println("❌ Ingredient conflicts with allergy: " + ingredient);
+                	    allergyConflictDetected = true; // <-- أضف هذا السطر
+                	    customer.setCustomMealIngredients(new ArrayList<>());
+                	    return false;
+                	}
+
                 }
             }
         }
@@ -189,4 +195,9 @@ public class CustomerManager
     {
         return customers.keySet();
     }
+    public boolean hasAllergyConflict() 
+    {
+        return allergyConflictDetected;
+    }
+
 }
