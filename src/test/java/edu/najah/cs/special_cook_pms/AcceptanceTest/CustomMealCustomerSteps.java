@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomMealCustomerSteps 
 {
-
     private final TestContext context;
 
     public CustomMealCustomerSteps(TestContext context)
@@ -16,19 +15,35 @@ public class CustomMealCustomerSteps
         this.context = context;
     }
 
-    @Given("the customer {string} is logged in and ready to customize a meal")
-    public void the_customer_is_logged_in_and_ready_to_customize_a_meal(String name) 
-    {
-        context.customerManager.registerCustomer(name);
-        context.customer = context.customerManager.getCustomer(name);
-        assertNotNull(context.customer);
-    }
+
 
     @When("the customer selects the ingredients {string} and {string}")
     public void the_customer_selects_the_ingredients_and(String ingredient1, String ingredient2)
     {
         List<String> ingredients = Arrays.asList(ingredient1, ingredient2);
         context.requestSuccessful = context.customerManager.requestCustomMeal(context.customer.getName(), ingredients);
+
+        System.out.println("🔍 Ingredients received: " + ingredients);
+
+        if (!context.requestSuccessful)
+        {
+            if (context.customerManager.hasAllergyConflict())
+            {
+                System.out.println("❌ Ingredient conflicts with allergy: " + ingredient2);
+            }
+            else if (context.customerManager.hasIncompatibleCombination())
+            {
+                System.out.println("❌ Rejected due to incompatible ingredients.");
+            }
+            else if (context.customerManager.isIngredientUnavailable())
+            {
+                System.out.println("❌ Ingredient not available: " + ingredient1 + " or " + ingredient2);
+            }
+        }
+        else
+        {
+            System.out.println("✅ Custom meal saved for " + context.customer.getName());
+        }
     }
 
     @When("the customer requests a meal with {string} and {string}")
@@ -36,6 +51,10 @@ public class CustomMealCustomerSteps
     {
         List<String> ingredients = Arrays.asList(ingredient1, ingredient2);
         context.requestSuccessful = context.customerManager.requestCustomMeal(context.customer.getName(), ingredients);
+
+        if (context.requestSuccessful) {
+            System.out.println("✅ Custom meal stored: " + ingredients);
+        }
     }
 
     @Then("the system should store the custom meal for {string}")
@@ -67,17 +86,10 @@ public class CustomMealCustomerSteps
         context.requestSuccessful = context.customerManager.requestCustomMeal(context.customer.getName(), ingredients);
     }
 
-    @Then("the system should reject the request due to incompatibility")
-    public void the_system_should_reject_the_request_due_to_incompatibility() 
-    {
-        assertFalse(context.requestSuccessful);
-        assertTrue(context.customerManager.hasIncompatibleCombination());
-    }
     @Then("the system should reject the meal due to allergy conflict")
     public void the_system_should_reject_the_meal_due_to_allergy_conflict()
     {
         assertFalse(context.requestSuccessful);
         assertTrue(context.customerManager.hasAllergyConflict());
     }
-
 }

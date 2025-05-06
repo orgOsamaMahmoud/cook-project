@@ -1,12 +1,12 @@
 package edu.najah.cs.special_cook_pms.manager;
 
 import edu.najah.cs.special_cook_pms.model.Customer;
-
 import java.util.*;
 
 public class CustomerManager 
 {
     private final Map<String, Customer> customers = new HashMap<>();
+    
     private static final List<String> availableIngredients = Arrays.asList(
         "Chicken", "Rice", "Spices", 
         "Tofu", "Broccoli", "Carrots",
@@ -17,7 +17,7 @@ public class CustomerManager
     private boolean incompatibleCombinationDetected = false;
     private boolean emptyIngredientsProvided = false;
     private boolean allergyConflictDetected = false;
-
+    private boolean ingredientUnavailable = false;
 
     public boolean registerCustomer(String name) 
     {
@@ -129,6 +129,7 @@ public class CustomerManager
         incompatibleCombinationDetected = false;
         emptyIngredientsProvided = false;
         allergyConflictDetected = false;
+        ingredientUnavailable = false;
 
         if (ingredients == null || ingredients.isEmpty()) 
         {
@@ -144,6 +145,7 @@ public class CustomerManager
             if (!availableIngredients.contains(ingredient))
             {
                 System.out.println("❌ Ingredient not available: " + ingredient);
+                ingredientUnavailable = true;
                 return false;
             }
 
@@ -152,14 +154,13 @@ public class CustomerManager
                 List<String> allergyList = Arrays.asList(customer.getAllergies().split(","));
                 for (String allergy : allergyList) 
                 {
-                	if (ingredient.equalsIgnoreCase(allergy.trim())) 
-                	{
-                	    System.out.println("❌ Ingredient conflicts with allergy: " + ingredient);
-                	    allergyConflictDetected = true; // <-- أضف هذا السطر
-                	    customer.setCustomMealIngredients(new ArrayList<>());
-                	    return false;
-                	}
-
+                    if (ingredient.equalsIgnoreCase(allergy.trim())) 
+                    {
+                        System.out.println("❌ Ingredient conflicts with allergy: " + ingredient);
+                        allergyConflictDetected = true;
+                        customer.setCustomMealIngredients(new ArrayList<>());
+                        return false;
+                    }
                 }
             }
         }
@@ -167,6 +168,7 @@ public class CustomerManager
         if (ingredients.contains("Milk") && ingredients.contains("Fish"))
         {
             incompatibleCombinationDetected = true;
+            return false;
         }
 
         customer.setCustomMealIngredients(ingredients);
@@ -191,13 +193,82 @@ public class CustomerManager
         return emptyIngredientsProvided;
     }
 
-    public Set<String> getAllCustomers() 
-    {
-        return customers.keySet();
-    }
     public boolean hasAllergyConflict() 
     {
         return allergyConflictDetected;
     }
+
+    public boolean isIngredientUnavailable() 
+    {
+        return ingredientUnavailable;
+    }
+
+    public Set<String> getAllCustomers() 
+    {
+        return customers.keySet();
+    }
+    
+   
+   public Map<String, List<String>> suggestAlternatives(String customerName, List<String> ingredients) 
+{
+    Customer customer = customers.get(customerName);
+    Map<String, List<String>> alternatives = new HashMap<>();
+
+    if (customer == null || ingredients == null || ingredients.isEmpty()) 
+    {
+        return alternatives;
+    }
+
+    List<String> allergyList = new ArrayList<>();
+    if (customer.getAllergies() != null && !customer.getAllergies().isEmpty()) 
+    {
+        allergyList = Arrays.asList(customer.getAllergies().split(","));
+        for (String allergen : allergyList)
+        {
+            allergen = allergen.trim();
+            List<String> alt = getSafeAlternatives(allergen);
+            if (alt != null && !alt.isEmpty())
+            {
+                alternatives.put(allergen, alt);
+            }
+        }
+    }
+
+    for (String ingredient : ingredients) 
+    {
+        if (!availableIngredients.contains(ingredient)) 
+        {
+            List<String> alt = getAvailableAlternatives(ingredient);
+            if (alt != null && !alt.isEmpty()) 
+            {
+                alternatives.put(ingredient, alt);
+            }
+        }
+    }
+
+    return alternatives;
+}
+
+    private List<String> getSafeAlternatives(String allergen)
+    {
+        Map<String, List<String>> allergySafeAlternatives = new HashMap<>();
+        allergySafeAlternatives.put("Milk", Arrays.asList("Soy Milk", "Almond Milk", "Oat Milk"));
+        allergySafeAlternatives.put("Dairy", Arrays.asList("Coconut Milk", "Rice Milk"));
+        allergySafeAlternatives.put("Eggs", Arrays.asList("Tofu", "Chia Seeds"));
+        allergySafeAlternatives.put("Peanuts", Arrays.asList("Sunflower Butter", "Pumpkin Seeds"));
+
+        return allergySafeAlternatives.getOrDefault(allergen, Collections.emptyList());
+    }
+
+    private List<String> getAvailableAlternatives(String ingredient)
+    {
+        Map<String, List<String>> ingredientAlternatives = new HashMap<>();
+        ingredientAlternatives.put("Dragonfruit", Arrays.asList("Apple", "Pear"));
+        ingredientAlternatives.put("Avocado", Arrays.asList("Zucchini", "Eggplant"));
+
+        return ingredientAlternatives.getOrDefault(ingredient, Collections.emptyList());
+    }
+
+
 
 }
