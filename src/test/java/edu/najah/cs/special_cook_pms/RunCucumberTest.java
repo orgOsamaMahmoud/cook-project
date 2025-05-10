@@ -10,16 +10,8 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
 
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("features") 
-@ConfigurationParameter(
-    key = GLUE_PROPERTY_NAME,
-    value = "edu.najah.cs.special_cook_pms.AcceptanceTest" 
-)
-@ConfigurationParameter(
-    key = PLUGIN_PROPERTY_NAME,
-    value = "pretty"
-)
-public class RunCucumberTest 
-{
-	
+@SelectClasspathResource("features")
+@ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "edu.najah.cs.special_cook_pms.AcceptanceTest")
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
+public class RunCucumberTest {
 }

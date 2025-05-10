@@ -1,11 +1,23 @@
 package edu.najah.cs.special_cook_pms.manager;
 
 import edu.najah.cs.special_cook_pms.model.Chef;
+import edu.najah.cs.special_cook_pms.model.Notification;
+
 import java.util.*;
 
 public class KitchenManager {
 
+    private final String name;
     private final List<Chef> chefs = new ArrayList<>();
+    private final List<Notification> notifications = new ArrayList<>();
+
+    public KitchenManager(String name) {
+        this.name = name;
+    }
+    public KitchenManager() {
+        this.name = "Default Kitchen";
+    }
+
 
     public void addChef(Chef chef) {
         chefs.add(chef);
@@ -34,5 +46,17 @@ public class KitchenManager {
 
     public List<Chef> getChefs() {
         return chefs;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void addNotification(Notification notification) {
+        notifications.add(notification);
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
     }
 }
