@@ -4,40 +4,203 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c52c57c-9f7b-4d56-a145-0ccfb1f2f9cb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/najah/cs/special_cook_pms/manager/CustomerManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/najah/cs/special_cook_pms/model/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/edu/najah/cs/special_cook_pms/test/CustomerManagerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/edu/najah/cs/special_cook_pms/AcceptanceTest/customer_profile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/customer_profile.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" beforeDir="false" afterPath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" afterDir="false" />
+    <list default="true" id="2c52c57c-9f7b-4d56-a145-0ccfb1f2f9cb" name="Changes" comment="test">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/najah/cs/special_cook_pms/manager/CustomerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/najah/cs/special_cook_pms/manager/CustomerManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/najah/cs/special_cook_pms/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/najah/cs/special_cook_pms/model/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/najah/cs/special_cook_pms/AppTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
   <component name="ProjectId" id="2vEKYTBeB99Kr0n8XpB8x1IgWBt" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Rebasing master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Cucumber Java.Feature: Customer_Financial.executor": "Run",
+    "Cucumber Java.Feature: Notifications _Alerts_System.executor": "Run",
+    "Cucumber Java.Feature: customer_profile.executor": "Run",
+    "Cucumber Java.Feature: inventory_management.executor": "Profiler#1",
+    "Cucumber Java.Feature: low_stock.executor": "Run",
+    "Cucumber Java.Scenario: Chef gets notified of a scheduled cooking task.executor": "Run",
+    "Cucumber Java.Scenario: Chef receives daily schedule of all cooking tasks.executor": "Run",
+    "Cucumber Java.Scenario: Chef receives priority notification for urgent order.executor": "Run",
+    "Cucumber Java.Scenario: Customer customizes notification preferences.executor": "Run",
+    "Cucumber Java.Scenario: Customer receives invoice after purchase completion.executor": "Run",
+    "Cucumber Java.Scenario: Customer receives invoice in preferred format.executor": "Run",
+    "Cucumber Java.Scenario: Customer receives multiple reminders for a special order.executor": "Run",
+    "Cucumber Java.Scenario: Customer receives reminder for upcoming meal delivery.executor": "Run",
+    "Cucumber Java.Scenario: Customer receives updated invoice after order modification.executor": "Run",
+    "Cucumber Java.Scenario: Do not generate order if stock is not critically low.executor": "Run",
+    "Cucumber Java.Scenario: Fetch price for an ingredient with no supplier data.executor": "Run",
+    "Cucumber Java.Scenario: Fetch real-time price for an ingredient.executor": "Run",
+    "Cucumber Java.Scenario: Generate purchase order when stock is critically low.executor": "Run",
+    "Cucumber Java.Scenario: Generate purchase orders for multiple critically low ingredients.executor": "Debug",
+    "Cucumber Java.Scenario: Ingredient quantity updated after restocking.executor": "Run",
+    "Cucumber Java.Scenario: Ingredient quantity updated after usage (1).executor": "Run",
+    "Cucumber Java.Scenario: Ingredient quantity updated after usage.executor": "Run",
+    "Cucumber Java.Scenario: System administrator generates customer spending analysis report.executor": "Run",
+    "Cucumber Java.Scenario: System administrator generates monthly revenue report.executor": "Run",
+    "Cucumber Java.Scenario: System administrator generates quarterly performance comparison report.executor": "Run",
+    "Cucumber Java.Scenario: System does not suggest restocking when stock is sufficient.executor": "Run",
+    "Cucumber Java.Scenario: System suggests restocking multiple low-stock items.executor": "Run",
+    "Cucumber Java.Scenario: System suggests restocking when stock is low.executor": "Run",
+    "Cucumber Java.Scenario: Update price when supplier changes rate.executor": "Run",
+    "Cucumber Java.Scenario: View current stock of an ingredient.executor": "Run",
+    "JUnit.CustomerManagerTest.executor": "Run",
+    "JUnit.InventoryManagerTest.executor": "Run",
+    "JUnit.RunCucumberTest.executor": "Run",
+    "JUnit.SupplierServiceTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "osama",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "C:/Users/EasyLife/IdeaProjects/Cook-project/cook-project/src/test/java",
+    "last_opened_file_path": "C:/Users/EasyLife/IdeaProjects/Cook-project/cook-project/src/test/java/edu/najah/cs/special_cook_pms/AcceptanceTest",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="edu.najah.cs.special_cook_pms" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Cucumber Java.Feature: low_stock">
+    <configuration name="Feature: low_stock" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/low_stock.feature" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="special-cook-pms" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter" />
+      <option name="SUGGESTED_NAME" value="Feature: low_stock" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Scenario: Chef gets notified of a scheduled cooking task" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/Notifications _Alerts_System.feature" />
+      <option name="GLUE" value="edu.najah.cs.special_cook_pms.AcceptanceTest" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="special-cook-pms" />
+      <option name="NAME_FILTER" value="^Chef gets notified of a scheduled cooking task$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Chef gets notified of a scheduled cooking task$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: Chef gets notified of a scheduled cooking task" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Scenario: Chef receives daily schedule of all cooking tasks" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/Notifications _Alerts_System.feature" />
+      <option name="GLUE" value="edu.najah.cs.special_cook_pms.AcceptanceTest" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="special-cook-pms" />
+      <option name="NAME_FILTER" value="^Chef receives daily schedule of all cooking tasks$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Chef receives daily schedule of all cooking tasks$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: Chef receives daily schedule of all cooking tasks" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Scenario: Chef receives priority notification for urgent order" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/Notifications _Alerts_System.feature" />
+      <option name="GLUE" value="edu.najah.cs.special_cook_pms.AcceptanceTest" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="special-cook-pms" />
+      <option name="NAME_FILTER" value="^Chef receives priority notification for urgent order$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Chef receives priority notification for urgent order$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: Chef receives priority notification for urgent order" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Scenario: Customer customizes notification preferences" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java" temporary="true" nameIsGenerated="true">
+      <option name="CUCUMBER_CORE_VERSION" value="5" />
+      <option name="FILE_PATH" value="$PROJECT_DIR$/src/test/resources/features/Notifications _Alerts_System.feature" />
+      <option name="GLUE" value="edu.najah.cs.special_cook_pms.AcceptanceTest" />
+      <option name="MAIN_CLASS_NAME" value="io.cucumber.core.cli.Main" />
+      <module name="special-cook-pms" />
+      <option name="NAME_FILTER" value="^Customer customizes notification preferences$" />
+      <option name="PROGRAM_PARAMETERS" value=" --plugin org.jetbrains.plugins.cucumber.java.run.CucumberJvm5SMFormatter --name &quot;^Customer customizes notification preferences$&quot;" />
+      <option name="SUGGESTED_NAME" value="Scenario: Customer customizes notification preferences" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="io.cucumber.core.cli.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -49,6 +212,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Cucumber Java.Feature: low_stock" />
+        <item itemvalue="Cucumber Java.Scenario: Chef receives daily schedule of all cooking tasks" />
+        <item itemvalue="Cucumber Java.Scenario: Chef gets notified of a scheduled cooking task" />
+        <item itemvalue="Cucumber Java.Scenario: Chef receives priority notification for urgent order" />
+        <item itemvalue="Cucumber Java.Scenario: Customer customizes notification preferences" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -58,7 +238,26 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1743704840536</updated>
+      <workItem from="1744404306827" duration="2984000" />
+      <workItem from="1745003371704" duration="28000" />
+      <workItem from="1746426717858" duration="248000" />
+      <workItem from="1746426987798" duration="8991000" />
+      <workItem from="1746444556550" duration="3030000" />
+      <workItem from="1746447973683" duration="6627000" />
+      <workItem from="1746886743421" duration="7471000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/cook_project$RunCucumberTest.ic" NAME="RunCucumberTest Coverage Results" MODIFIED="1746446498938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>edu.najah.cs.special_cook_pms.*</FILTER>
+    </SUITE>
   </component>
 </project>
