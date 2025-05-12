@@ -17,8 +17,8 @@
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
   </properties>
 
-  <dependencies>
-    <!-- JUnit -->
+    <dependencies>
+    <!-- JUnit 5 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -36,6 +36,14 @@
       <artifactId>junit-jupiter-api</artifactId>
       <version>5.10.0</version>
       <scope>compile</scope>
+    </dependency>
+
+    <!-- ✅ JUnit 4 (for org.junit.Assert) -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
     </dependency>
 
     <!-- Cucumber -->
@@ -66,6 +74,7 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
 
   <build>
     <plugins>
