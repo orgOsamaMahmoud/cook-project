@@ -1,5 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>edu.najah.cs</groupId>
@@ -17,7 +18,7 @@
   </properties>
 
   <dependencies>
-    <!-- JUnit 5 -->
+    <!-- JUnit -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -75,7 +76,7 @@
         <version>3.0.0-M7</version>
       </plugin>
 
-      <!-- JaCoCo for code coverage -->
+      <!-- JaCoCo plugin -->
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -94,11 +95,14 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <outputDirectory>${project.build.directory}/site/jacoco</outputDirectory>
+        </configuration>
       </plugin>
     </plugins>
   </build>
 
-  <!-- Optional: To support mvn site for JaCoCo report -->
+  <!-- Optional reporting section for mvn site -->
   <reporting>
     <plugins>
       <plugin>
@@ -114,5 +118,4 @@
       </plugin>
     </plugins>
   </reporting>
-
 </project>
