@@ -19,38 +19,44 @@ public class App
         System.out.println("\n🔵 Updating preferences...");
         customerManager.updatePreferences("Mahmoud Yaseen", "Vegetarian", "Peanuts");
 
-        // عرض التفضيلات للتأكيد
+        // الحصول على الزبون
         Customer customer = customerManager.getCustomer("Mahmoud Yaseen");
+
+        // التحقق من وجود الزبون قبل المتابعة
         if (customer != null) {
+            // عرض التفضيلات للتأكيد
             System.out.println("\n✅ Customer preferences:");
             System.out.println("- Dietary: " + customer.getDietaryPreferences());
             System.out.println("- Allergies: " + customer.getAllergies());
-        }
 
-        // إضافة طلبات
-        System.out.println("\n🔵 Placing orders...");
-        customerManager.placeOrder("Mahmoud Yaseen", "Grilled Chicken");
-        customerManager.placeOrder("Mahmoud Yaseen", "Pasta Alfredo");
+            // إضافة طلبات
+            System.out.println("\n🔵 Placing orders...");
+            customerManager.placeOrder("Mahmoud Yaseen", "Grilled Chicken");
+            customerManager.placeOrder("Mahmoud Yaseen", "Pasta Alfredo");
 
-        // عرض سجل الطلبات
-        System.out.println("\n✅ Order History:");
-        for (String order : customer.getOrderHistory()) {
-            System.out.println("- " + order);
-        }
+            // عرض سجل الطلبات
+            System.out.println("\n✅ Order History:");
+            for (String order : customer.getOrderHistory()) {
+                System.out.println("- " + order);
+            }
 
-        // إعادة طلب وجبة
-        System.out.println("\n🔵 Reordering 'Grilled Chicken'...");
-        boolean reordered = customerManager.reorderMeal("Mahmoud Yaseen", "Grilled Chicken");
-        if (reordered) {
-            System.out.println("✅ Meal reordered successfully!");
+            // إعادة طلب وجبة
+            System.out.println("\n🔵 Reordering 'Grilled Chicken'...");
+            boolean reordered = customerManager.reorderMeal("Mahmoud Yaseen", "Grilled Chicken");
+            if (reordered) {
+                System.out.println("✅ Meal reordered successfully!");
+            } else {
+                System.out.println("❌ Failed to reorder meal.");
+            }
+
+            // عرض سجل الطلبات المحدث
+            System.out.println("\n✅ Updated Order History:");
+            for (String order : customer.getOrderHistory()) {
+                System.out.println("- " + order);
+            }
+
         } else {
-            System.out.println("❌ Failed to reorder meal.");
-        }
-
-        // عرض سجل الطلبات المحدث
-        System.out.println("\n✅ Updated Order History:");
-        for (String order : customer.getOrderHistory()) {
-            System.out.println("- " + order);
+            System.out.println("❌ Customer not found.");
         }
 
         System.out.println("\n🏁 End of Demo - 1.1 and 1.2 are Completed Successfully!");
