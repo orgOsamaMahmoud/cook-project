@@ -1,0 +1,187 @@
+package edu.najah.cs.special_cook_pms.test;
+
+import edu.najah.cs.special_cook_pms.manager.NotificationManager;
+import edu.najah.cs.special_cook_pms.manager.KitchenManager;
+
+import edu.najah.cs.special_cook_pms.model.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class NotificationManagerTest {
+
+    private NotificationManager manager;
+
+    @BeforeEach
+    public void setUp() {
+        manager = new NotificationManager();
+    }
+
+    @Test
+    public void testScheduleNotification() {
+        Notification notif = manager.scheduleNotification("user1", "CUSTOMER", "Test", "Content",
+                new Date(), "EMAIL", "NORMAL");
+        assertNotNull(notif);
+        assertEquals("CUSTOMER", notif.getRecipientType());
+    }
+
+    @Test
+    public void testSendImmediateNotification() {
+        Notification notif = manager.sendImmediateNotification("user1", "CHEF", "Now", "Go", "SMS", "URGENT");
+        assertEquals("SENT", notif.getStatus());
+    }
+
+    @Test
+    public void testProcessScheduledNotifications_empty() {
+        List<Notification> result = manager.processScheduledNotifications();
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    public void testScheduleDeliveryReminders() {
+        Customer c = new Customer("Ali");
+        Delivery d = new Delivery("Ali", "ORD999", new Date(System.currentTimeMillis() + 50000));
+        List<Notification> reminders = manager.scheduleDeliveryReminders(c, d);
+        assertFalse(reminders.isEmpty());
+    }
+
+    @Test
+    public void testScheduleCookingTaskNotifications() {
+        Chef chef = new Chef("Abu Ahmad");
+        CookingTask task = new CookingTask(chef.getName(), "ORD456", new Date(System.currentTimeMillis() + 3600000));
+        List<Notification> result = manager.scheduleCookingTaskNotifications(chef, task);
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    public void testSaveAndUpdatePreferences() {
+        List<NotificationPreference> prefs = new ArrayList<>();
+        prefs.add(new NotificationPreference("Ali", "CUSTOMER", "APP", true, 3));
+        manager.saveNotificationPreferences("Ali", "CUSTOMER", prefs);
+
+        manager.updateNotificationPreference("Ali", "CUSTOMER", "EMAIL", true, 5);
+
+        Delivery d = new Delivery("Ali", "ORD999", new Date(System.currentTimeMillis() + 50000));
+        List<Notification> scheduled = manager.scheduleDeliveryReminders(new Customer("Ali"), d);
+        assertFalse(scheduled.isEmpty());
+    }
+
+    @Test
+    public void testGetNotificationsForUser() {
+        manager.sendImmediateNotification("Mohammed", "CHEF", "Alert", "Hurry!", "EMAIL", "URGENT");
+        List<Notification> result = manager.getNotificationsForUser("Mohammed");
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    public void testAddTimedNotification_valid() {
+        Notification notif = new Notification();
+        notif.setRecipientId("TestUser");
+        notif.setRecipientType("CHEF");
+        notif.setSubject("Timed");
+        notif.setContent("Check");
+        notif.setScheduledTime(new Date(System.currentTimeMillis() + 10000));
+        notif.setChannel("EMAIL");
+        notif.setPriority("NORMAL");
+        notif.setStatus("PENDING");
+        notif.setRequiresConfirmation(true);
+
+        manager.addTimedNotification(notif);
+
+        List<Notification> result = manager.getNotificationsForUser("TestUser");
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    public void testAddTimedNotification_null() {
+        assertDoesNotThrow(() -> manager.addTimedNotification(null));
+    }
+
+    @Test
+    public void testDebugNotificationsState() {
+        manager.debugNotificationsState(); 
+        manager.sendImmediateNotification("DebugUser", "CHEF", "Test", "Now", "EMAIL", "NORMAL");
+        manager.debugNotificationsState(); 
+    }
+
+    @Test
+    public void testSendToManager() {
+        KitchenManager kitchenManager = new KitchenManager("Chef Maher");
+
+        Notification notification = new Notification();
+        notification.setRecipientId("Chef Maher");
+        notification.setRecipientType("KITCHEN_MANAGER");
+        notification.setSubject("Low Stock");
+        notification.setContent("Salt is low");
+        notification.setChannel("EMAIL");
+        notification.setPriority("NORMAL");
+
+        manager.sendToManager(kitchenManager, notification);
+
+        List<Notification> notifications = kitchenManager.getNotifications();
+        assertEquals(1, notifications.size());
+        assertEquals("SENT", notifications.get(0).getStatus());
+    }
+    
+    @Test
+    public void testProcessScheduledNotifications_readyToSend() {
+        Notification notif = manager.scheduleNotification(
+                "ReadyUser", "CUSTOMER", "Soon", "Be ready",
+                new Date(System.currentTimeMillis() - 1000), "APP", "NORMAL"
+        );
+        notif.setStatus("PENDING");
+
+        List<Notification> result = manager.processScheduledNotifications();
+        assertFalse(result.isEmpty());
+        assertEquals("SENT", result.get(0).getStatus());
+    }
+    
+    @Test
+    public void testScheduleDeliveryReminders_disabledPrefs() {
+        Customer c = new Customer("Zaid");
+        List<NotificationPreference> prefs = List.of(
+                new NotificationPreference("Zaid", "CUSTOMER", "EMAIL", false, 1)
+        );
+        manager.saveNotificationPreferences("Zaid", "CUSTOMER", prefs);
+
+        Delivery d = new Delivery("Zaid", "ORD200", new Date(System.currentTimeMillis() + 50000));
+        List<Notification> result = manager.scheduleDeliveryReminders(c, d);
+        assertTrue(result.isEmpty());
+    }
+    
+    @Test
+    public void testScheduleCookingTaskNotifications_nullInputs() {
+        List<Notification> r1 = manager.scheduleCookingTaskNotifications(null, null);
+        assertTrue(r1.isEmpty());
+
+        Chef chef = new Chef("Lena");
+        List<Notification> r2 = manager.scheduleCookingTaskNotifications(chef, null);
+        assertTrue(r2.isEmpty());
+    }
+    
+    @Test
+    public void testSendDailySchedule_emptyTasks() {
+        Chef chef = new Chef("Ahmad");
+        Notification result = manager.sendDailySchedule(chef, new ArrayList<>(), new Date());
+        assertNull(result);
+    }
+    
+    @Test
+    public void testGetHoursBetween() throws Exception
+    {
+        Date now = new Date();
+        Date later = new Date(now.getTime() + 3 * 60 * 60 * 1000); 
+        java.lang.reflect.Method method = manager.getClass()
+            .getDeclaredMethod("getHoursBetween", Date.class, Date.class);
+        method.setAccessible(true);
+        long hours = (long) method.invoke(manager, now, later);
+        assertEquals(3L, hours);
+    }
+
+
+
+
+}
