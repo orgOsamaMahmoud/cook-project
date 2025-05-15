@@ -227,6 +227,41 @@ public class NotificationManagerTest {
         assertEquals(1, result.size());
     }
 
+    @Test
+    public void testSendDailySchedule_withUrgentAndPreparation() {
+        Chef chef = new Chef("Chef Omar");
+
+        CookingTask task = new CookingTask("Chef Omar", "ORD888", new Date(System.currentTimeMillis() + 60000));
+        task.setUrgent(true);
+        Map<String, String> preparation = new HashMap<>();
+        preparation.put("Chop onions", "yes");
+        preparation.put("Preheat oven", "200C");
+        task.setPreparationRequirements(preparation);
+
+        List<CookingTask> tasks = new ArrayList<>();
+        tasks.add(task);
+        Date scheduleDate = new Date();
+
+        Notification notif = manager.sendDailySchedule(chef, tasks, scheduleDate);
+
+        assertNotNull(notif);
+        assertEquals("Chef Omar", notif.getRecipientId());
+        assertTrue(notif.getContent().contains("Chop onions"));
+        assertTrue(notif.getContent().contains("Preheat oven"));
+        assertTrue(notif.getContent().contains("[URGENT]"));
+    }
+
+
+    @Test
+    public void testGetDefaultChefPreferences_viaScheduleCooking() {
+        Chef chef = new Chef("Chef Taha");
+        CookingTask task = new CookingTask("Chef Taha", "ORD777", new Date(System.currentTimeMillis() + 7200000)); // +2 ساعات
+
+        List<Notification> result = manager.scheduleCookingTaskNotifications(chef, task);
+
+        assertEquals(2, result.size()); 
+        assertTrue(result.get(0).getRecipientType().equals("CHEF"));
+    }
 
 
 
