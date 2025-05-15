@@ -182,6 +182,53 @@ public class NotificationManagerTest {
     }
 
 
+    @Test
+    public void testSendNotificationDirectly() {
+        Notification notif = new Notification();
+        notif.setRecipientId("DirectUser");
+        notif.setChannel("EMAIL");
+        notif.setSubject("Direct Test");
+
+        boolean result = manager.sendNotification(notif);
+        assertTrue(result);
+        assertEquals("SENT", notif.getStatus());
+    }
+    
+    @Test
+    public void testUpdatePreference_addNew() {
+        manager.updateNotificationPreference("UserX", "CUSTOMER", "SMS", true, 8);
+        Delivery d = new Delivery("UserX", "ORD555", new Date(System.currentTimeMillis() + 3600000));
+        List<Notification> result = manager.scheduleDeliveryReminders(new Customer("UserX"), d);
+        assertFalse(result.isEmpty());
+    }
+    
+    @Test
+    public void testDefaultChefPreferences() {
+        Chef chef = new Chef("ChefDefault");
+        CookingTask task = new CookingTask(chef.getName(), "ORDDEF", new Date(System.currentTimeMillis() + 7200000));
+        List<Notification> result = manager.scheduleCookingTaskNotifications(chef, task);
+        assertEquals(2, result.size()); 
+    }
+    
+    @Test
+    public void testAddTimedNotification_noConfirmation() {
+        Notification notif = new Notification();
+        notif.setRecipientId("NoConfirmUser");
+        notif.setRecipientType("CHEF");
+        notif.setSubject("NoConf");
+        notif.setContent("None");
+        notif.setScheduledTime(new Date(System.currentTimeMillis() + 5000));
+        notif.setChannel("APP");
+        notif.setPriority("NORMAL");
+        notif.setStatus("PENDING");
+
+        manager.addTimedNotification(notif);
+        List<Notification> result = manager.getNotificationsForUser("NoConfirmUser");
+        assertEquals(1, result.size());
+    }
+
+
+
 
 
 }
