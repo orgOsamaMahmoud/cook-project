@@ -7,17 +7,17 @@ import java.util.*;
 
 public class KitchenManager {
 
-    private final String name;
+    private String name; // تم إزالة final
     private final List<Chef> chefs = new ArrayList<>();
     private final List<Notification> notifications = new ArrayList<>();
 
     public KitchenManager(String name) {
         this.name = name;
     }
+
     public KitchenManager() {
         this.name = "Default Kitchen";
     }
-
 
     public void addChef(Chef chef) {
         chefs.add(chef);
@@ -50,6 +50,10 @@ public class KitchenManager {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void addNotification(Notification notification) {

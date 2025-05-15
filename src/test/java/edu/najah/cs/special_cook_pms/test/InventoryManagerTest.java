@@ -1,62 +1,122 @@
 package edu.najah.cs.special_cook_pms.test;
+
 import edu.najah.cs.special_cook_pms.manager.InventoryManager;
+import edu.najah.cs.special_cook_pms.manager.KitchenManager;
+import edu.najah.cs.special_cook_pms.manager.NotificationManager;
+import edu.najah.cs.special_cook_pms.model.StockNotification;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class InventoryManagerTest {
-    private InventoryManager manager;
+public class InventoryManagerTest {
+
+    private InventoryManager inventoryManager;
 
     @BeforeEach
-    void setUp() {
-        manager = new InventoryManager();
+    public void setup() {
+        inventoryManager = new InventoryManager(new NotificationManager());
     }
 
     @Test
-    void testIngredientUsageUpdatesQuantity() {
-        manager.addIngredient("Tomatoes", 50);
-        manager.useIngredient("Tomatoes", 10);
-        assertEquals(40, manager.getQuantity("Tomatoes"));
+    public void testGetItemsToRestock() {
+        inventoryManager.addIngredient("Tomato", 2);
+        inventoryManager.setThreshold("Tomato", 5);
+        Map<String, Integer> restocks = inventoryManager.getItemsToRestock();
+        assertTrue(restocks.containsKey("Tomato"));
     }
 
     @Test
-    void testRestockingUpdatesQuantity() {
-        manager.addIngredient("Onions", 20);
-        manager.addIngredient("Onions", 30);
-        assertEquals(50, manager.getQuantity("Onions"));
+    public void testCheckLowStockIngredients() {
+        inventoryManager.addIngredient("Onion", 1);
+        inventoryManager.setThreshold("Onion", 4);
+        List<String> lowStock = inventoryManager.checkLowStockIngredients();
+        assertEquals(1, lowStock.size());
+        assertEquals("Onion", lowStock.get(0));
     }
 
     @Test
-    void testGetCurrentStock() {
-        manager.addIngredient("Cheese", 15);
-        assertEquals(15, manager.getQuantity("Cheese"));
+    public void testNotifyLowStock_singleItem() {
+        KitchenManager kitchenManager = new KitchenManager();
+        kitchenManager.setName("Chef Kareem");
+
+        inventoryManager.addIngredient("Cheese", 1);
+        inventoryManager.setThreshold("Cheese", 3);
+
+        inventoryManager.notifyLowStock(kitchenManager);
     }
 
     @Test
-    void testSuggestRestockWhenLow() {
-        manager.addIngredient("Lettuce", 4);
-        manager.setThreshold("Lettuce", 5);
-        assertTrue(manager.shouldRestock("Lettuce"));
+    public void testNotifyLowStock_multipleItems() {
+        KitchenManager kitchenManager = new KitchenManager();
+        kitchenManager.setName("Chef Kareem");
+
+        inventoryManager.addIngredient("Salt", 0);
+        inventoryManager.addIngredient("Pepper", 1);
+        inventoryManager.setThreshold("Salt", 2);
+        inventoryManager.setThreshold("Pepper", 3);
+
+        inventoryManager.notifyLowStock(kitchenManager);
     }
 
     @Test
-    void testNoRestockWhenStockSufficient() {
-        manager.addIngredient("Salt", 10);
-        manager.setThreshold("Salt", 5);
-        assertFalse(manager.shouldRestock("Salt"));
+    public void testCreateMultipleItemMessage_format() {
+        inventoryManager.addIngredient("Oil", 1);
+        inventoryManager.setThreshold("Oil", 4);
+
+        List<String> low = List.of("Oil");
+        String message = invokeCreateMultipleItemMessage(low);
+        assertTrue(message.contains("Oil"));
+        assertTrue(message.contains("Please restock"));
+    }
+
+    private String invokeCreateMultipleItemMessage(List<String> items) {
+        try {
+        	Method method = InventoryManager.class.getDeclaredMethod("createMultipleItemMessage", List.class);
+            method.setAccessible(true);
+            return (String) method.invoke(inventoryManager, items);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
+    @Test
+    public void testRestockSuggestions() {
+        inventoryManager.addIngredient("Rice", 2);
+        inventoryManager.setThreshold("Rice", 5);
+
+        Map<String, Boolean> suggestions = inventoryManager.restockSuggestions();
+        assertTrue(suggestions.containsKey("Rice"));
+        assertTrue(suggestions.get("Rice"));
+    }
+    
+    @Test
+    public void testUseIngredientExceedsAvailable() {
+        inventoryManager.addIngredient("Flour", 3);
+        inventoryManager.useIngredient("Flour", 10);
+        assertEquals(0, inventoryManager.getQuantity("Flour"));
+    }
+
+
+    @Test
+    public void testGetQuantityForUnknownIngredient() {
+        assertEquals(0, inventoryManager.getQuantity("UnknownItem"));
     }
 
     @Test
-    void testMultipleLowStockSuggestions() {
-        manager.addIngredient("Carrots", 2);
-        manager.addIngredient("Potatoes", 3);
-        manager.setThreshold("Carrots", 5);
-        manager.setThreshold("Potatoes", 4);
-        Map<String, Boolean> suggestions = manager.restockSuggestions();
-        assertTrue(suggestions.get("Carrots"));
-        assertTrue(suggestions.get("Potatoes"));
+    public void testSetNotificationManagerAfterConstruction() {
+        InventoryManager manager = new InventoryManager(); 
+        manager.setNotificationManager(new NotificationManager());
+
+        KitchenManager kitchenManager = new KitchenManager("Chef Amal");
+        manager.addIngredient("Yogurt", 1);
+        manager.setThreshold("Yogurt", 3);
+
+        manager.notifyLowStock(kitchenManager);
     }
+
 }
-

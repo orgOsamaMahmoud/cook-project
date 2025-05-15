@@ -16,15 +16,11 @@ public class InventoryManager {
     private final Map<String, Integer> thresholds = new HashMap<>();
     private NotificationManager notificationManager;
 
-    // Add constructor that takes a NotificationManager
     public InventoryManager(NotificationManager notificationManager) {
         this.notificationManager = notificationManager;
     }
 
-    // Add default constructor for backward compatibility
-    public InventoryManager() {
-        // Default constructor
-    }
+    public InventoryManager() {}
 
     public void addIngredient(String name, int quantity) {
         inventory.put(name, inventory.getOrDefault(name, 0) + quantity);
@@ -46,7 +42,6 @@ public class InventoryManager {
         return getQuantity(name) < thresholds.getOrDefault(name, 0);
     }
 
-    // Original method kept for compatibility with tests
     public Map<String, Boolean> restockSuggestions() {
         Map<String, Boolean> suggestions = new HashMap<>();
         for (String item : inventory.keySet()) {
@@ -55,7 +50,6 @@ public class InventoryManager {
         return suggestions;
     }
 
-    // New method for clean filtering of items that truly need restocking
     public Map<String, Integer> getItemsToRestock() {
         Map<String, Integer> restocks = new HashMap<>();
         for (String item : inventory.keySet()) {
@@ -70,7 +64,6 @@ public class InventoryManager {
         return thresholds.getOrDefault(item, 0);
     }
 
-    // NEW METHODS FOR LOW STOCK NOTIFICATIONS
 
     /**
      * Checks inventory and returns list of ingredients below threshold
@@ -100,7 +93,6 @@ public class InventoryManager {
 
         if (!lowStock.isEmpty()) {
             if (lowStock.size() == 1) {
-                // Single ingredient notification
                 String ingredient = lowStock.get(0);
                 StockNotification notification = new StockNotification(
                         manager.getName(),
@@ -113,7 +105,6 @@ public class InventoryManager {
 
                 notificationManager.sendToManager(manager, notification);   
             } else {
-                // Consolidated notification for multiple ingredients
                 StockNotification notification = new StockNotification(
                         manager.getName(),
                         "KITCHEN_MANAGER",
