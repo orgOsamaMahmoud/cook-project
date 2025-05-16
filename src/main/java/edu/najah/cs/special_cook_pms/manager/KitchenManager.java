@@ -7,7 +7,7 @@ import java.util.*;
 
 public class KitchenManager {
 
-    private String name; // تم إزالة final
+    private String name; 
     private final List<Chef> chefs = new ArrayList<>();
     private final List<Notification> notifications = new ArrayList<>();
 
