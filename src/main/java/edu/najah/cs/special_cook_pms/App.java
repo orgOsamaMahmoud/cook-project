@@ -7,20 +7,21 @@ public class App
 {
     public static void main(String[] args) 
     {
+        final String name = "Mahmoud Yaseen";
         System.out.println("🚀 Welcome to Special Cook Project");
 
         CustomerManager customerManager = new CustomerManager();
 
         // تسجيل زبون جديد
         System.out.println("\n🔵 Registering customer...");
-        customerManager.registerCustomer("Mahmoud Yaseen");
+        customerManager.registerCustomer(name);
 
         // تحديث التفضيلات والحساسيات
         System.out.println("\n🔵 Updating preferences...");
-        customerManager.updatePreferences("Mahmoud Yaseen", "Vegetarian", "Peanuts");
+        customerManager.updatePreferences(name, "Vegetarian", "Peanuts");
 
         // الحصول على الزبون
-        Customer customer = customerManager.getCustomer("Mahmoud Yaseen");
+        Customer customer = customerManager.getCustomer(name);
 
         // التحقق من وجود الزبون قبل المتابعة
         if (customer != null) {
@@ -31,8 +32,8 @@ public class App
 
             // إضافة طلبات
             System.out.println("\n🔵 Placing orders...");
-            customerManager.placeOrder("Mahmoud Yaseen", "Grilled Chicken");
-            customerManager.placeOrder("Mahmoud Yaseen", "Pasta Alfredo");
+            customerManager.placeOrder(name, "Grilled Chicken");
+            customerManager.placeOrder(name, "Pasta Alfredo");
 
             // عرض سجل الطلبات
             System.out.println("\n✅ Order History:");
@@ -42,7 +43,7 @@ public class App
 
             // إعادة طلب وجبة
             System.out.println("\n🔵 Reordering 'Grilled Chicken'...");
-            boolean reordered = customerManager.reorderMeal("Mahmoud Yaseen", "Grilled Chicken");
+            boolean reordered = customerManager.reorderMeal(name, "Grilled Chicken");
             if (reordered) {
                 System.out.println("✅ Meal reordered successfully!");
             } else {

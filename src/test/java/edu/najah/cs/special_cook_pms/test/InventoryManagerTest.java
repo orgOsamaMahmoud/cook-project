@@ -47,6 +47,14 @@ public class InventoryManagerTest {
         inventoryManager.addIngredient("Cheese", 1);
         inventoryManager.setThreshold("Cheese", 3);
 
+        // Assert that cheese is identified as needing restocking
+        assertTrue(inventoryManager.shouldRestock("Cheese"));
+
+        // Assert that cheese appears in the low stock ingredients list
+        List<String> lowStockItems = inventoryManager.checkLowStockIngredients();
+        assertTrue(lowStockItems.contains("Cheese"));
+        assertEquals(1, lowStockItems.size());
+
         inventoryManager.notifyLowStock(kitchenManager);
     }
 
@@ -59,6 +67,16 @@ public class InventoryManagerTest {
         inventoryManager.addIngredient("Pepper", 1);
         inventoryManager.setThreshold("Salt", 2);
         inventoryManager.setThreshold("Pepper", 3);
+
+        assertTrue(inventoryManager.shouldRestock("Salt"));
+        assertTrue(inventoryManager.shouldRestock("Pepper"));
+
+        // Assert that both ingredients appear in the low stock ingredients list
+        List<String> lowStockItems = inventoryManager.checkLowStockIngredients();
+        assertTrue(lowStockItems.contains("Salt"));
+        assertTrue(lowStockItems.contains("Pepper"));
+        assertEquals(2, lowStockItems.size());
+
 
         inventoryManager.notifyLowStock(kitchenManager);
     }
@@ -115,6 +133,15 @@ public class InventoryManagerTest {
         KitchenManager kitchenManager = new KitchenManager("Chef Amal");
         manager.addIngredient("Yogurt", 1);
         manager.setThreshold("Yogurt", 3);
+
+
+        // Assert that Yogurt is identified as needing restocking
+        assertTrue(manager.shouldRestock("Yogurt"));
+
+        // Assert that Yogurt appears in the low stock ingredients list
+        List<String> lowStockItems = manager.checkLowStockIngredients();
+        assertTrue(lowStockItems.contains("Yogurt"));
+        assertEquals(1, lowStockItems.size());
 
         manager.notifyLowStock(kitchenManager);
     }

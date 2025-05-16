@@ -102,9 +102,22 @@ public class NotificationManagerTest {
 
     @Test
     public void testDebugNotificationsState() {
-        manager.debugNotificationsState(); 
+        // Verify no notifications exist for the debug user before sending
+        List<Notification> beforeNotifications = manager.getNotificationsForUser("DebugUser");
+        assertEquals(0, beforeNotifications.size(), "Should have no notifications before sending");
+
+        manager.debugNotificationsState();
         manager.sendImmediateNotification("DebugUser", "CHEF", "Test", "Now", "EMAIL", "NORMAL");
-        manager.debugNotificationsState(); 
+        manager.debugNotificationsState();
+
+        // Verify notification exists after sending
+        List<Notification> afterNotifications = manager.getNotificationsForUser("DebugUser");
+        assertEquals(1, afterNotifications.size(), "Should have one notification after sending");
+
+        // Verify the notification has the correct properties
+        Notification notification = afterNotifications.get(0);
+        assertEquals("SENT", notification.getStatus());
+        assertEquals("Test", notification.getSubject());
     }
 
     @Test
