@@ -106,4 +106,8 @@ public class CookingTask {
     public void addPreparationRequirement(String item, String details) {
         this.preparationRequirements.put(item, details);
     }
+
+    public Date getCookingTime() {
+        return scheduledTime;
+    }
 }
