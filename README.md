@@ -150,8 +150,5 @@ java -cp target/cook-project.jar edu.najah.cs.special_cook_pms.App
 
 ## ⭐ Contributors  
 - Mahmoud Yaseen  
-- Project team  
+- osama jamal
 
----
-
-## 💛 If you liked this project, give it a ⭐ on GitHub!
