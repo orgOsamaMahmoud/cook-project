@@ -1,101 +1,157 @@
-🍳 Cook Project — Recipe & Meal Management API
+# 🍽️ Cook Project — Kitchen & Cooking Task Management System  
+A Java-based cooking and kitchen-management system built using **Object-Oriented Programming**,  
+**Manager classes**, **Model classes**, and **Cucumber (Gherkin)** for behavior-driven testing.
 
-The Cook Project is a backend API designed to manage recipes, ingredients, and cooking steps in a clean and scalable way.
-It allows users to store, update, search, and organize cooking data using modern development practices.
+The system simulates real kitchen operations such as chefs, cooking tasks, delivery, suppliers, inventory, notifications, and customer orders.
 
-Built with Node.js, Express.js, and SQL database, the API follows REST structure, uses authentication, and provides a structured kitchen-management experience.
+---
 
-🚀 Tech Stack
+## 🚀 Tech Stack
 
-Backend: Node.js, Express.js
+### **Languages & Tools**
+- **Java** (OOP)
+- **Cucumber (Gherkin)** for BDD testing  
+- **JUnit** for unit tests  
+- **Maven** (pom.xml)  
+- **Git / GitHub Actions**
 
-Database: MySQL / MariaDB
+---
 
-Query Builder / ORM: Sequelize / Raw SQL
+## 🧩 System Overview
 
-Authentication: JWT (Login/Register)
+The project follows a modular OOP structure with 3 core layers:
 
-Validation: Express Middleware
+### 1️⃣ **Model Layer**  
+Contains all entities (objects) used in the system:
+- Chef  
+- Customer  
+- Supplier  
+- Kitchen  
+- Invoice  
+- Inventory  
+- CookingTask  
+- Delivery  
+- Notification  
 
-Tools: Postman, Git, GitHub Projects
+🧱 Each model represents a real object in the cooking workflow.
 
-🎯 Features
-🍽 Recipe Management
+---
 
-Add, edit & delete recipes
+### 2️⃣ **Manager Layer**  
+The "brain" of the system — contains all business logic.
 
-Attach ingredients, categories, steps
+Example managers:
+- **ChefManager** – assign chefs, track chef workload  
+- **CookingTaskManager** – create + manage cooking tasks  
+- **CustomerManager** – handle customer orders  
+- **InventoryManager** – add/remove inventory items  
+- **DeliveryManager** – schedule deliveries  
+- **InvoiceManager** – generate invoices  
+- **NotificationManager** – send notifications  
+- **KitchenManager** – central operation controller  
 
-Upload recipe images (optional)
+✔ Each manager includes functions tested using JUnit + Cucumber.
 
-🧂 Ingredients System
+---
 
-Store ingredients with measurements
+### 3️⃣ **Context Layer**
+- Glue code for **Cucumber**
+- Step Definitions  
+- TestContext.java  
+- Shared data between steps  
 
-Link ingredients to recipes
+BDD folder:  
+```
+src/test/resources/features/*.feature
+```
 
-Quantity & units control
+---
 
-🔍 Search & Filtering
+## 📂 Project Structure
 
-Search recipes by:
-✔ Name
-✔ Category
-✔ Ingredient
-✔ Difficulty
+```
+src/
+ ├── main/
+ │   └── java/edu/najah/cs/special_cook_pms/
+ │         ├── model/
+ │         ├── manager/
+ │         ├── context/
+ │         └── App.java
+ └── test/
+     ├── java/...
+     └── resources/features/
+```
 
-👤 User Accounts
+---
 
-Signup / Login
+## 🧪 Testing (Cucumber + JUnit)
 
-JWT-based authentication
+### ✔ Unit Tests  
+- Each manager has JUnit tests  
+- Tests business logic (task creation, inventory updates, etc.)
 
-Saved recipes (optional)
+### ✔ BDD Tests (Gherkin)
+Feature examples:
+```
+Feature: Cooking management
+  Scenario: Assign chef to cooking task
+    Given a chef exists
+    And a cooking task is created
+    When the chef is assigned to the task
+    Then the task should appear in the chef’s active tasks
+```
 
-📦 Extras
+Executed using:
+```bash
+mvn test
+```
 
-Error-handling middleware
+---
 
-Database seeders
+## ▶️ How to Run the Program
 
-Modular folder structure
+### Run main application:
+```bash
+mvn clean package
+java -cp target/cook-project.jar edu.najah.cs.special_cook_pms.App
+```
 
-Clean, scalable code
+---
 
-📁 Project Structure
-cook-project/
- ├── controllers/
- ├── routes/
- ├── models/
- ├── middlewares/
- ├── config/
- ├── utils/
- └── app.js
+## 🎯 Features Implemented
 
-⚡ Installation & Startup
-git clone https://github.com/orgOsamaMahmoud/cook-project
-cd cook-project
-npm install
-npm start
+### 🍳 Cooking Task System  
+- Create and manage tasks  
+- Assign chefs  
+- Track completion
 
-🔑 Environment Variables
+### 🍽 Inventory System  
+- Add/remove ingredients  
+- Check stock  
+- Lock items for tasks
 
-Create .env:
+### 👨‍🍳 Chef Management  
+- Chef assignment  
+- Activity tracking  
+- Availability checks
 
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASS=yourpassword
-DB_NAME=cookdb
+### 🚚 Delivery Module  
+- Schedule deliveries  
+- Track delivery status
 
-JWT_SECRET=your_jwt_key
+### 🧾 Invoice & Customer System  
+- Generate invoices  
+- Customer order tracking
 
-🧪 Testing API (Postman)
+### 🔔 Notifications  
+- Trigger notifications for events (task done, delivery complete, etc.)
 
-Create recipes
+---
 
-Add ingredients
+## ⭐ Contributors  
+- Mahmoud Yaseen  
+- Project team  
 
-Filter by category
+---
 
-Test JWT login routes
+## 💛 If you liked this project, give it a ⭐ on GitHub!
